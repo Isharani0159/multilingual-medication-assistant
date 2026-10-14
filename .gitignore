@@ -1,0 +1,16 @@
+# Secrets - kabhi commit nahi karni
+.env
+
+# Local database (patient data ho sakta hai)
+*.db
+*.sqlite3
+
+# Python cache / virtual envs
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Editor / OS
+.vscode/
+.DS_Store

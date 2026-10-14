@@ -1,0 +1,150 @@
+<!doctype html>
+<!-- index.html: single page shell. Text is filled by i18n.js; dynamic content by app.js -->
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MedAssist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Noto+Naskh+Arabic:wght@400;600;700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<div class="app">
+  <!-- Navigation: bottom bar on phones/tablets, left sidebar on desktop -->
+  <nav class="nav" aria-label="Main">
+    <div class="brand"><span class="brand-mark">M</span><span data-i18n="app_name">MedAssist</span></div>
+    <button class="nav-btn active" data-view="today">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
+      <span data-i18n="nav_today">Today</span></button>
+    <button class="nav-btn" data-view="meds">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="8" width="20" height="8" rx="4" transform="rotate(-45 12 12)"/><path d="M9 9l6 6"/></svg>
+      <span data-i18n="nav_meds">Medicines</span></button>
+    <button class="nav-btn" data-view="report">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+      <span data-i18n="nav_report">Report</span></button>
+    <button class="nav-btn" data-view="chat">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-5.5A8 8 0 1 1 21 12z"/></svg>
+      <span data-i18n="nav_chat">Assistant</span></button>
+  </nav>
+
+  <main id="main">
+    <header class="topbar">
+      <h1 id="page-title">Today</h1>
+      <label class="lang">
+        <span class="sr" data-i18n="language">Language</span>
+        <select id="lang-select">
+          <option value="en">English</option>
+          <option value="ur">اردو</option>
+          <option value="sd">سنڌي</option>
+        </select>
+      </label>
+    </header>
+
+    <div id="toast-area" aria-live="polite"></div>
+
+    <!-- TODAY -->
+    <section id="view-today" class="view">
+      <div id="next-action" class="card next"></div>
+      <button id="btn-notify" class="btn btn-quiet" data-i18n="notif_enable">Enable reminders</button>
+      <div id="summary" class="summary"></div>
+      <h2 data-i18n="schedule_title">Today's schedule</h2>
+      <div id="dose-list" class="stack"></div>
+    </section>
+
+    <!-- MEDICINES -->
+  
+<!-- MEDICINES -->
+
+<!-- MEDICINES -->
+
+<!-- MEDICINES -->
+      <div class="toolbar">
+        <button id="btn-add-med" class="btn btn-primary" data-i18n="add_med">Add medicine</button>
+        <button id="btn-scan" class="btn btn-quiet" data-i18n="scan_btn">Scan prescription</button>
+      </div>
+
+      <!-- Prescription scan panel: upload, then review cards (filled by app.js) -->
+      <div id="scan-panel" class="card form" hidden>
+        <h2 data-i18n="scan_btn">Scan prescription</h2>
+        <p class="hint" data-i18n="scan_privacy">The photo is sent to Google's Gemini AI to read the text. Use sample prescriptions only.</p>
+        <label>
+          <span data-i18n="scan_choose">Take or choose a photo</span>
+          <input id="scan-input" type="file" accept="image/*">
+        </label>
+        <p id="scan-status" class="hint" role="status" hidden></p>
+        <div id="scan-results" class="scan-list"></div>
+        <button type="button" id="btn-scan-close" class="btn btn-quiet" data-i18n="close">Close</button>
+      </div>
+
+
+
+
+      <form id="med-form" class="card form" hidden novalidate>
+        <h2 id="form-title" data-i18n="add_med">Add medicine</h2>
+        <p class="hint" data-i18n="enter_as_prescribed">Enter exactly what is written on the prescription. This app never suggests doses.</p>
+        <label>
+          <span data-i18n="med_name">Medicine name</span>
+          <input id="f-name" maxlength="100" required>
+        </label>
+        <label>
+          <span data-i18n="med_dose">Dose (as prescribed)</span>
+          <input id="f-dose" maxlength="100" required placeholder="1 tablet">
+        </label>
+        <fieldset>
+          <legend data-i18n="med_times">Times each day</legend>
+          <div id="times-box" class="times"></div>
+          <button type="button" id="btn-add-time" class="btn btn-quiet" data-i18n="add_time">+ Add time</button>
+        </fieldset>
+        <div class="row">
+          <label><span data-i18n="med_start">Start date</span><input id="f-start" type="date" required></label>
+          <label><span data-i18n="med_end">End date (optional)</span><input id="f-end" type="date"></label>
+        </div>
+        <label>
+          <span data-i18n="med_notes">Notes (optional)</span>
+          <input id="f-notes" maxlength="300">
+        </label>
+        <p id="form-error" class="form-error" role="alert" hidden></p>
+        <div class="row actions">
+          <button type="submit" class="btn btn-primary" data-i18n="save">Save</button>
+          <button type="button" id="btn-cancel" class="btn btn-quiet" data-i18n="cancel">Cancel</button>
+        </div>
+      </form>
+
+      <div id="med-list" class="stack"></div>
+    </section>
+
+    <!-- REPORT -->
+    <section id="view-report" class="view" hidden>
+      <h2 data-i18n="week_title">Last 7 days</h2>
+      <div id="report"></div>
+    </section>
+
+    <!-- ASSISTANT -->
+    <section id="view-chat" class="view" hidden>
+      <p class="hint" data-i18n="chat_disclaimer">I help with using the app and general medication habits. I am not a doctor.</p>
+      <div id="chat-log" class="chat-log" aria-live="polite"></div>
+      <form id="chat-form" class="chat-form">
+        <input id="chat-input" maxlength="500" data-i18n-placeholder="ask_placeholder" placeholder="Ask a question" autocomplete="off">
+        <button class="btn btn-primary" data-i18n="send">Send</button>
+      </form>
+    </section>
+
+    <footer class="footer">
+      <p data-i18n="safety_note">Support tool only. Not medical advice. Always follow your doctor or pharmacist.</p>
+      <details>
+        <summary data-i18n="privacy_title">Privacy</summary>
+        <p data-i18n="privacy_text">This demo stores only what you type, on this server. Use fictional data only.</p>
+      </details>
+    </footer>
+  </main>
+</div>
+
+<script src="/static/js/i18n.js"></script>
+<script src="/static/js/notifications.js"></script>
+<script src="/static/js/app.js"></script>
+</body>
+</html>
